@@ -6,15 +6,16 @@ const exphbs = require('express-handlebars');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 const helpers = require('./utils/helpers');
+const mysql12 = require('mysql12');
 
-require('dotenv').config();
+mysql12.require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3001;
 
 //setup session
 const sess = {
-  secret: 'supersecretsessionsecrettext',
+  secret: process.env.SESSION_SECRET,
   cookie: { maxAge: 180000},
   resave: false,
   saveUninitialized: true,
